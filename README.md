@@ -1,10 +1,12 @@
-# React Blog
+# Blog Space
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)  
-![npm version](https://img.shields.io/npm/v/react-blog.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A fast, customizable blog starter built with React, Vite, Tailwind CSS, Markdown support, and Storybook.  
-Ideal for developers who want a modern, extensible personal or project blog.
+A modern, full-stack blog application built with React, Express.js, and MongoDB. Features a rich text editor, user authentication, dark/light themes, and a responsive design built with Tailwind CSS.
+
+**Frontend**: React 18 + Vite + Tailwind CSS + React Query  
+**Backend**: Express.js + MongoDB + JWT Authentication  
+**UI Components**: Radix UI + Lucide Icons + Framer Motion
 
 ---
 
@@ -28,17 +30,35 @@ Ideal for developers who want a modern, extensible personal or project blog.
 
 ## Features
 
-- ⚡️ **Vite** for blazingly fast dev and build  
-- 📄 Markdown-based posts with `react-quill` / `quill` support  
-- 🎨 Tailwind CSS + `@tailwindcss/forms` + `prettier-plugin-tailwindcss`  
-- 🌙 Light / dark theme switch via `next-themes`  
-- 🔍 Client‑side routing with `react-router-dom`  
-- 🧩 UI components & icons: Radix UI, Heroicons, Lucide  
-- 🚀 Data fetching & caching with React Query  
-- 🔐 JWT decode + form validation with `react-hook-form` + Zod  
-- 🧪 Unit & integration testing via Vitest & Playwright  
-- 📖 Component explorer using Storybook  
-- 🧹 ESLint + Prettier + lint-staged + Husky for code quality  
+### Frontend
+- ⚡️ **Vite** for lightning-fast development and builds
+- 📝 **Rich Text Editor** with Quill.js for creating and editing posts
+- 🎨 **Tailwind CSS** for modern, responsive styling
+- 🌙 **Dark/Light Themes** with smooth transitions via next-themes
+- 🔍 **Client-side Routing** with React Router DOM
+- 🧩 **Modern UI Components** with Radix UI primitives
+- 🎯 **Form Handling** with React Hook Form + Zod validation
+- 🚀 **State Management** with React Query for server state
+- 📱 **Responsive Design** optimized for all screen sizes
+- 🎭 **Animations** with Framer Motion
+- 🔔 **Toast Notifications** with Sonner
+
+### Backend
+- ⚡️ **Express.js** for fast, reliable API server
+- 🗄️ **MongoDB** with Mongoose ODM for data persistence
+- 🔐 **JWT Authentication** with secure password hashing
+- 📝 **Blog Post CRUD** operations with author permissions
+- 🖼️ **Image Upload** support for blog posts
+- 👤 **User Management** with registration and login
+- 🧪 **Testing** with Jest and MongoDB Memory Server
+- 🔄 **Auto-reload** with Nodemon during development
+
+### Development Tools
+- 📖 **Storybook** for component development and documentation
+- 🧪 **Testing** with Vitest (unit) and Playwright (e2e)
+- 🧹 **Code Quality** with ESLint, Prettier, and lint-staged
+- 🪝 **Git Hooks** with Husky for pre-commit checks
+- 📝 **Conventional Commits** with Commitlint  
 
 ---
 
@@ -60,22 +80,28 @@ yarn -v
 
 ## Installation
 
-Clone the repo:
+Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/react-blog.git
-cd react-blog
+git clone https://github.com/RemowRamms/blog-space.git
+cd blog-space
 ```
 
-Install dependencies:
+Install frontend dependencies:
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
-Initialize Husky hooks:
+Install backend dependencies:
+
+```bash
+cd backend
+npm install
+cd ..
+```
+
+Initialize Git hooks:
 
 ```bash
 npm run prepare
@@ -85,19 +111,19 @@ npm run prepare
 
 ## Available Scripts
 
-From the project root, run:
+### Frontend (from project root)
 
 ```bash
 npm run dev
 ```
 
-Starts Vite dev server on [http://localhost:5173](http://localhost:5173).
+Starts the Vite development server on [http://localhost:5173](http://localhost:5173).
 
 ```bash
 npm run build
 ```
 
-Builds production assets into `dist/`.
+Builds the frontend for production into `dist/`.
 
 ```bash
 npm run preview
@@ -109,7 +135,7 @@ Serves the production build locally.
 npm run lint
 ```
 
-Runs ESLint on `src/` and auto‑fixes issues.
+Runs ESLint on `src/` and auto-fixes issues.
 
 ```bash
 npm run storybook
@@ -122,6 +148,32 @@ npm run build-storybook
 ```
 
 Builds the static Storybook site.
+
+### Backend (from backend/ directory)
+
+```bash
+npm run dev
+```
+
+Starts the Express development server with auto-reload on [http://localhost:5000](http://localhost:5000).
+
+```bash
+npm start
+```
+
+Starts the production server.
+
+```bash
+npm run lint
+```
+
+Runs ESLint on `backend/src/`.
+
+```bash
+npm test
+```
+
+Runs Jest tests for the backend API.
 
 ---
 
@@ -188,13 +240,30 @@ react-blog/
 
 ## Configuration
 
-If you need API endpoints, feature flags, etc., create a `.env` file in the root:
+### Frontend Environment Variables
+
+Create a `.env` file in the project root:
 
 ```ini
-VITE_API_URL=https://api.example.com
+VITE_API_URL=http://localhost:5000/api
 ```
 
-Vite will expose any `VITE_` prefixed variables to your client code.
+### Backend Environment Variables
+
+Create a `.env` file in the `backend/` directory:
+
+```ini
+MONGODB_URI=mongodb://localhost:27017/blog-space
+JWT_SECRET=your-super-secret-jwt-key-here
+PORT=5000
+NODE_ENV=development
+```
+
+**Required Backend Variables:**
+- `MONGODB_URI`: MongoDB connection string (local or Atlas)
+- `JWT_SECRET`: Secret key for signing JWT tokens (use a strong, random string in production)
+- `PORT`: Server port (default: 5000)
+- `NODE_ENV`: Environment mode (`development` or `production`)
 
 ---
 
@@ -226,17 +295,30 @@ Your component library and UI states live in Storybook:
 
 ## Testing
 
-**Vitest** for unit & snapshot tests:
+### Frontend Testing
+
+**Vitest** for unit and integration tests:
 
 ```bash
 npx vitest
 ```
 
-**Playwright** for end‑to‑end/browser tests:
+**Playwright** for end-to-end browser tests:
 
 ```bash
 npx playwright test
 ```
+
+### Backend Testing
+
+**Jest** for API unit tests:
+
+```bash
+cd backend
+npm test
+```
+
+Backend tests use MongoDB Memory Server for isolated test environments without requiring a live database.
 
 ---
 
@@ -248,15 +330,33 @@ npx playwright test
 
 ---
 
+## Quick Start
+
+1. **Start the Backend:**
+   ```bash
+   cd backend
+   npm run dev
+   ```
+
+2. **Start the Frontend:** (in a new terminal)
+   ```bash
+   npm run dev
+   ```
+
+3. **Open your browser:**
+   - Frontend: [http://localhost:5173](http://localhost:5173)
+   - Backend API: [http://localhost:5000](http://localhost:5000)
+   - Storybook: [http://localhost:6006](http://localhost:6006) (run `npm run storybook`)
+
 ## Contributing
 
-- Fork the repository  
-- Create a feature branch  
-- Commit your changes (`feat`, `fix`, `docs`, etc.)  
-- Push to your branch  
-- Open a Pull Request  
+- Fork the repository
+- Create a feature branch (`git checkout -b feature/amazing-feature`)
+- Commit your changes using conventional commits (`feat:`, `fix:`, `docs:`, etc.)
+- Push to your branch (`git push origin feature/amazing-feature`)
+- Open a Pull Request
 
-Please follow our Code of Conduct.
+Please follow our code of conduct and coding standards.
 
 ---
 
