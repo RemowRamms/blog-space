@@ -1,7 +1,7 @@
 import { useAuth } from '../contexts/AuthContext'
 import { jwtDecode } from 'jwt-decode'
 import { User } from './User'
-import { ArrowLeftIcon, CommandIcon, PlusIcon } from 'lucide-react'
+import { ArrowLeftIcon, CommandIcon, PlusIcon, Blocks } from 'lucide-react'
 import PropTypes from 'prop-types'
 
 // Shadcn UI components
