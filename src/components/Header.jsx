@@ -37,8 +37,8 @@ export function Header({
         return (
             <header className='flex items-center justify-between'>
                 <div className='flex items-center gap-2'>
-                    <CommandIcon className='h-5 w-5' />
-                    <h1 className='text-xl font-bold'>Syntax</h1>
+                    <Blocks className='h-5 w-5' />
+                    <h1 className='text-xl font-bold'>MindSpace</h1>
                 </div>
 
                 {token && (
